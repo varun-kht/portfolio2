@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>about · varun khatri</title>
+  <script type="module" src="/theme.js"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #f5f0ff;
+      --border: #d4c8f0;
+      --ink: #2a1f4a;
+      --ink-soft: #3e2f6e;
+      --muted: #7a6a9a;
+      --rose: #b39ddb;
+      --rose-deep: #9575cd;
+      --rose-dark: rgb(103, 58, 183);
+    }
+
+    [data-theme="dark"] {
+      --bg: #13102a;
+      --border: #2e2550;
+      --ink: #e8e4f4;
+      --ink-soft: #c4b8e8;
+      --muted: #8878b0;
+      --rose: #b39ddb;
+      --rose-deep: #9575cd;
+      --rose-dark: rgb(149, 117, 205);
+    }
+
+    [data-theme="dark"] .socials img {
+      filter: invert(0.85);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      cursor: pointer;
+      font-size: 16px;
+      color: var(--muted);
+      transition: color 0.15s, border-color 0.15s;
+      line-height: 1;
+    }
+
+    .theme-toggle:hover {
+      color: var(--ink);
+      border-color: var(--ink-soft);
+    }
+
+    .toggle-icon::before {
+      content: '\263E';
+    }
+
+    [data-theme="dark"] .toggle-icon::before {
+      content: '\2600';
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 17px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: var(--rose-dark);
+      text-decoration: none;
+    }
+
+    a:hover {
+      color: var(--ink);
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 36px 30px 90px;
+    }
+
+    /* nav */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 18px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav-logo a {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--rose-dark);
+      letter-spacing: 0.005em;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 17px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .nav-links a:hover {
+      color: var(--ink);
+    }
+
+    .nav-links a.on {
+      color: var(--ink);
+    }
+
+    /* ── hero animation area ── */
+    .about {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+      gap: 40px;
+    }
+
+    /* Floating orbs canvas-style animation */
+    .orb-scene {
+      position: relative;
+      width: 280px;
+      height: 280px;
+      margin: 0 auto;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(28px);
+      opacity: 0.55;
+      animation: floatOrb linear infinite;
+    }
+
+    .orb-1 {
+      width: 160px;
+      height: 160px;
+      background: radial-gradient(circle, #b39ddb, #7c3aed);
+      top: 20px;
+      left: 30px;
+      animation-duration: 9s;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 110px;
+      height: 110px;
+      background: radial-gradient(circle, #c4b5fd, #9575cd);
+      top: 100px;
+      left: 130px;
+      animation-duration: 12s;
+      animation-delay: -3s;
+      opacity: 0.45;
+    }
+
+    .orb-3 {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #e0d7ff, #b39ddb);
+      top: 160px;
+      left: 50px;
+      animation-duration: 7s;
+      animation-delay: -5s;
+      opacity: 0.6;
+    }
+
+    .orb-4 {
+      width: 50px;
+      height: 50px;
+      background: radial-gradient(circle, #7c3aed, #4c1d95);
+      top: 60px;
+      left: 200px;
+      animation-duration: 11s;
+      animation-delay: -2s;
+      opacity: 0.35;
+    }
+
+    @keyframes floatOrb {
+      0% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      25% {
+        transform: translate(14px, -18px) scale(1.05);
+      }
+
+      50% {
+        transform: translate(-10px, 20px) scale(0.95);
+      }
+
+      75% {
+        transform: translate(18px, 12px) scale(1.03);
+      }
+
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+    }
+
+    /* glowing name badge in the center */
+    .orb-name {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+    }
+
+    .orb-name span {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 38px;
+      color: #fff;
+      text-shadow: 0 0 30px rgba(149, 117, 205, 0.9), 0 0 60px rgba(103, 58, 183, 0.5);
+      letter-spacing: 0.02em;
+    }
+
+    /* typewriter terminal block */
+    .terminal {
+      background: var(--ink);
+      border-radius: 10px;
+      padding: 20px 24px;
+      max-width: 520px;
+      width: 100%;
+      box-shadow: 0 8px 32px rgba(103, 58, 183, 0.18), 0 0 0 1px rgba(149, 117, 205, 0.15);
+    }
+
+    .terminal-bar {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .terminal-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+    }
+
+    .terminal-dot.red {
+      background: #ff5f57;
+    }
+
+    .terminal-dot.amber {
+      background: #febc2e;
+    }
+
+    .terminal-dot.green {
+      background: #28c840;
+    }
+
+    .terminal-body {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      line-height: 1.85;
+      color: #e2e8f0;
+    }
+
+    .terminal-body .prompt {
+      color: #9575cd;
+    }
+
+    .terminal-body .comment {
+      color: #6b7280;
+    }
+
+    .terminal-body .string {
+      color: #c4b5fd;
+    }
+
+    .terminal-body .key {
+      color: #7dd3fc;
+    }
+
+    /* animated typewriter cursor */
+    .cursor {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: #9575cd;
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* line reveal animation */
+    .t-line {
+      opacity: 0;
+      animation: revealLine 0.25s forwards;
+    }
+
+    .t-line:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .t-line:nth-child(2) {
+      animation-delay: 0.55s;
+    }
+
+    .t-line:nth-child(3) {
+      animation-delay: 0.9s;
+    }
+
+    .t-line:nth-child(4) {
+      animation-delay: 1.2s;
+    }
+
+    .t-line:nth-child(5) {
+      animation-delay: 1.55s;
+    }
+
+    .t-line:nth-child(6) {
+      animation-delay: 1.85s;
+    }
+
+    .t-line:nth-child(7) {
+      animation-delay: 2.2s;
+    }
+
+    .t-line:nth-child(8) {
+      animation-delay: 2.5s;
+    }
+
+    .t-line:nth-child(9) {
+      animation-delay: 2.85s;
+    }
+
+    .t-line:nth-child(10) {
+      animation-delay: 3.2s;
+    }
+
+    .t-line:nth-child(11) {
+      animation-delay: 3.5s;
+    }
+
+    .t-line:nth-child(12) {
+      animation-delay: 3.8s;
+    }
+
+    @keyframes revealLine {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* about intro text */
+    .about-intro {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      text-align: left;
+      max-width: 520px;
+      color: var(--ink-soft);
+    }
+
+    .about-intro .welcome {
+      color: var(--rose-dark);
+      font-weight: 500;
+    }
+
+    /* achievements */
+    .achievements {
+      max-width: 640px;
+      width: 100%;
+      box-sizing: border-box;
+      background: linear-gradient(160deg, #efe7ff, #e4d8fb);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 26px;
+      box-shadow: 0 8px 32px rgba(103, 58, 183, 0.12), 0 0 0 1px rgba(149, 117, 205, 0.08);
+    }
+
+    [data-theme="dark"] .achievements {
+      background: linear-gradient(160deg, #1d1746, #181237);
+      border-color: #2e2550;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .ach-title {
+      font-family: 'Instrument Serif', serif;
+      font-style: italic;
+      font-size: 28px;
+      color: var(--rose-dark);
+      margin: 0 0 20px;
+      text-align: center;
+    }
+
+    .ach-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .ach-card {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 18px;
+      transition: transform 0.12s, box-shadow 0.12s;
+    }
+
+    [data-theme="dark"] .ach-card {
+      background: #13102a;
+    }
+
+    .ach-card:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: 2px 2px 0 rgba(103, 58, 183, 0.18);
+    }
+
+    .ach-card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--rose-dark);
+      margin: 0;
+      flex-shrink: 0;
+      width: 180px;
+    }
+
+    .ach-card p {
+      font-size: 13px;
+      line-height: 1.45;
+      color: var(--ink-soft);
+      margin: 0;
+    }
+
+    @media (max-width: 560px) {
+      .ach-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .ach-card h3 {
+        width: auto;
+      }
+    }
+
+    /* foot */
+    .foot {
+      margin-top: 60px;
+      padding-top: 22px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 12px;
+    }
+
+    .socials img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.6;
+      transition: opacity 0.15s;
+    }
+
+    .socials a:hover img {
+      opacity: 1;
+    }
+
+    .copy {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 560px) {
+      .orb-scene {
+        width: 220px;
+        height: 220px;
+      }
+
+      .orb-name span {
+        font-size: 28px;
+      }
+
+      .terminal {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+
+    <nav class="nav">
+      <div class="nav-logo">
+        <a href="index.html">varun khatri</a>
+      </div>
+      <div class="nav-links">
+        <a href="index.html" class="on">about</a>
+        <a href="pages/work.html">work</a>
+        <a href="pages/projects.html">projects</a>
+        <a href="pages/publications.html">publications</a>
+        <a href="pages/writing.html">writing</a>
+        <button class="theme-toggle" aria-label="Toggle dark mode">
+          <span class="toggle-icon"></span>
+        </button>
+      </div>
+    </nav>
+
+    <div class="about">
+
+      <!-- Floating lavender orbs with name -->
+      <div class="orb-scene">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="orb orb-4"></div>
+        <div class="orb-name">
+          <span>vk</span>
+        </div>
+      </div>
+
+      <!-- Terminal card with animated line reveal -->
+      <div class="terminal">
+        <div class="terminal-bar">
+          <div class="terminal-dot red"></div>
+          <div class="terminal-dot amber"></div>
+          <div class="terminal-dot green"></div>
+        </div>
+        <div class="terminal-body">
+          <div class="t-line"><span class="comment"># whoami</span></div>
+          <div class="t-line"><span class="prompt">❯</span> <span class="string">Varun Khatri</span></div>
+          <div class="t-line">&nbsp;</div>
+          <div class="t-line"><span class="comment"># status</span></div>
+          <div class="t-line"><span class="key">role</span> → AI Engineer Intern @ DigiHumans.ai</div>
+          <div class="t-line"><span class="key">edu</span> → B.E. Information Science, DSCE '28 · 9.15 SGPA</div>
+          <div class="t-line"><span class="key">loc</span> → Bangalore, India</div>
+          <div class="t-line"><span class="key">fellow</span> → IASc–INSA–NASI Summer Research '26</div>
+          <div class="t-line">&nbsp;</div>
+          <div class="t-line"><span class="comment"># current focus</span></div>
+          <div class="t-line"><span class="key">stack</span> → RAG · LangGraph · MCP · 3D Avatars</div>
+          <div class="t-line"><span class="prompt">❯</span> <span class="string" id="typewriter"></span><span
+              class="cursor"></span></div>
+        </div>
+      </div>
+
+      <p class="about-intro">
+        Student &amp; AI Engineer. Into backend infra, agentic orchestration, RAG systems, and real-time 3D
+        avatars.<br>
+        Currently building RAG &amp; agent pipelines at DigiHumans.ai and contributing to open source.<br>
+        I write about what I build &mdash; tech, systems, and the occasional rabbit hole.<br><br>
+        <span class="welcome">welcome to my corner of the internet :)</span>
+      </p>
+
+      <section class="achievements">
+        <h2 class="ach-title">achievements ✦</h2>
+        <div class="ach-grid">
+          <div class="ach-card">
+            <h3>SRFP '26</h3>
+            <p>Summer Research Fellow with the national science academies (IASc, INSA &amp; NASI) — a competitive two-month
+              fellowship working alongside scientists on a guided research project.</p>
+          </div>
+          <div class="ach-card">
+            <h3>ACM Summer School</h3>
+            <p>Selected at IISc Bangalore — an intensive school giving a small cohort of students deep, research-grade
+              exposure to an advanced computing topic, taught by experts from academia and industry.</p>
+          </div>
+          <div class="ach-card">
+            <h3>CMRIT Hackathon</h3>
+            <p>Placed 2nd Runner Up, building and pitching a working prototype within the event's time limit.</p>
+          </div>
+          <div class="ach-card">
+            <h3>Open Source</h3>
+            <p>Merged PR #5399 into prefix-dev/pixi (a fast, Rust-based cross-platform package manager on the conda
+              ecosystem); also a contributor to sktime, the unified Python library for time-series ML.</p>
+          </div>
+          <div class="ach-card">
+            <h3>Hackathon Organizer</h3>
+            <p>Helped run IEDC &amp; Genesis — coordinating logistics, problem statements and judging for campus hackathons.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="foot">
+      <div class="socials">
+        <a href="mailto:varunkhatrioffical.1@gmail.com"><img src="images/email.webp" alt="email" /></a>
+        <a href="https://github.com/varun-kht"><img src="images/github.webp" alt="github" /></a>
+        <a href="https://www.linkedin.com/in/varunkhatri/"><img src="images/linkedin.webp"
+            alt="linkedin" /></a>
+        <a href="https://x.com/sencill_a"><img src="images/x.webp" alt="x" /></a>
+
+      </div>
+      <div class="copy">© varun khatri</div>
+    </footer>
+
+  </div>
+
+  <script>
+    (function () {
+      const el = document.getElementById('typewriter');
+      if (!el) return;
+      const phrases = [
+        'building in public',
+        'AI Engineer',
+        'Backend Engineer',
+        'AI Researcher',
+        'Open Source Contributor'
+      ];
+      const typeSpeed = 70;
+      const eraseSpeed = 40;
+      const holdTime = 1400;
+      const pauseTime = 350;
+      let phraseIndex = 0;
+      let charIndex = 0;
+      let deleting = false;
+
+      function tick() {
+        const current = phrases[phraseIndex];
+        if (!deleting) {
+          el.textContent = current.slice(0, charIndex + 1);
+          charIndex++;
+          if (charIndex === current.length) {
+            deleting = true;
+            setTimeout(tick, holdTime);
+            return;
+          }
+          setTimeout(tick, typeSpeed);
+        } else {
+          el.textContent = current.slice(0, charIndex - 1);
+          charIndex--;
+          if (charIndex === 0) {
+            deleting = false;
+            phraseIndex = (phraseIndex + 1) % phrases.length;
+            setTimeout(tick, pauseTime);
+            return;
+          }
+          setTimeout(tick, eraseSpeed);
+        }
+      }
+
+      tick();
+    })();
+  </script>
+</body>
+
+</html>
