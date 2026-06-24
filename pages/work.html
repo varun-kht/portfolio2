@@ -242,6 +242,22 @@
     .role {
       position: relative;
       margin-bottom: 30px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: roleIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .role:nth-child(1) { animation-delay: 0.05s; }
+    .role:nth-child(2) { animation-delay: 0.15s; }
+    .role:nth-child(3) { animation-delay: 0.25s; }
+    .role:nth-child(4) { animation-delay: 0.35s; }
+    .role:nth-child(5) { animation-delay: 0.45s; }
+
+    @keyframes roleIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .role::before {
@@ -254,6 +270,12 @@
       border-radius: 50%;
       background: var(--rose);
       box-shadow: 0 0 0 4px var(--bg), 0 0 0 5px var(--border);
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .role:hover::before {
+      transform: scale(1.35);
+      background: var(--rose-deep);
     }
 
     .role-card {
@@ -262,6 +284,21 @@
       border-radius: 8px;
       padding: 20px 22px;
       box-shadow: var(--shadow);
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .role-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 4px 6px 0 rgba(103, 58, 140, 0.16);
+      border-color: var(--rose-deep);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .role {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
     }
 
     .role-title {
@@ -414,10 +451,9 @@
       (RAG).
     </p>
     <div class="resume-row">
-      <a href="#" class="resume-btn" target="_blank" rel="noopener">
+      <a href="https://drive.google.com/file/d/1gFy9RqrycwaPHRKIle0_5LbHT6-yVd9i/view?usp=sharing" class="resume-btn" target="_blank" rel="noopener">
         <span class="arrow">↑</span> download resume
       </a>
-      <span class="resume-meta">updated jun 2026</span>
     </div>
 
     <div class="timeline">
@@ -490,6 +526,7 @@
     </footer>
 
   </div>
+  <script type="module" src="/companion.js"></script>
 </body>
 
 </html>

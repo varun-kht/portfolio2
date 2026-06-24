@@ -208,14 +208,63 @@
       box-shadow: var(--shadow);
       display: flex;
       flex-direction: column;
-      transition: transform 0.12s, box-shadow 0.12s;
+      transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
       min-width: 0;
       overflow: hidden;
+      position: relative;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: pinIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    /* sheen sweep that runs on hover */
+    .pin::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+      transform: skewX(-20deg);
+      pointer-events: none;
+      opacity: 0;
+    }
+
+    [data-theme="dark"] .pin::before {
+      background: linear-gradient(120deg, transparent, rgba(149, 117, 205, 0.22), transparent);
+    }
+
+    .pin:hover::before {
+      animation: sheen 0.7s ease;
+    }
+
+    /* staggered entrance per card */
+    .pin:nth-child(1) { animation-delay: 0.05s; }
+    .pin:nth-child(2) { animation-delay: 0.13s; }
+    .pin:nth-child(3) { animation-delay: 0.21s; }
+    .pin:nth-child(4) { animation-delay: 0.29s; }
+    .pin:nth-child(5) { animation-delay: 0.37s; }
+    .pin:nth-child(6) { animation-delay: 0.45s; }
+    .pin:nth-child(7) { animation-delay: 0.53s; }
+
+    @keyframes pinIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes sheen {
+      0% { left: -75%; opacity: 0; }
+      30% { opacity: 1; }
+      100% { left: 125%; opacity: 0; }
     }
 
     .pin:hover {
-      transform: translate(-1px, -1px);
-      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+      box-shadow: 4px 6px 0 rgba(103, 58, 140, 0.16);
+      border-color: var(--rose-deep);
     }
 
     .pin-name {
@@ -225,6 +274,22 @@
       font-size: 24px;
       line-height: 1.1;
       margin-bottom: 5px;
+      transition: transform 0.18s ease;
+    }
+
+    .pin:hover .pin-name {
+      transform: translateX(2px);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pin {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .pin:hover::before {
+        animation: none;
+      }
     }
 
     .pin:nth-child(7n+1) .pin-name {
@@ -303,6 +368,11 @@
 
     .pin-links a:hover {
       color: var(--ink);
+    }
+
+    .pin-links.spread {
+      flex: 1;
+      justify-content: space-between;
     }
 
     /* foot */
@@ -387,9 +457,11 @@
         <div class="pin-name">AIvora</div>
         <p class="pin-desc">Real-time emotionally-aware 3D avatar system capturing vocal input, extracting emotional
           vectors, and syncing 3D face mesh.</p>
-        <div class="pin-foot">
+        <div class="pin-foot" style="flex-direction: column; align-items: stretch; gap: 8px;">
           <div class="pin-stack">Groq<span class="sep">·</span>WebSockets<span class="sep">·</span>Cartesia TTS</div>
-          <div class="pin-links"><a href="#">link</a></div>
+          <div class="pin-links spread"><a href="https://github.com/varun-kht/Aivora" target="_blank"
+              rel="noopener">link</a><a href="https://youtu.be/hpynLNVKtr4?feature=shared" target="_blank"
+              rel="noopener">video</a></div>
         </div>
       </article>
 
@@ -400,7 +472,8 @@
         <div class="pin-foot">
           <div class="pin-stack">LangGraph<span class="sep">·</span>MCP<span class="sep">·</span>Qdrant<span
               class="sep">·</span>Groq</div>
-          <div class="pin-links"><a href="#">link</a></div>
+          <div class="pin-links"><a href="https://github.com/varun-kht/Mergemind" target="_blank"
+              rel="noopener">link</a></div>
         </div>
       </article>
 
@@ -430,6 +503,7 @@
     </footer>
 
   </div>
+  <script type="module" src="/companion.js"></script>
 </body>
 
 </html>
