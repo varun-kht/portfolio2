@@ -557,57 +557,65 @@
 
       <ul class="posts">
         <li data-cat="technical">
-          <span class="date">2026-05-10</span>
+          <span class="date">2026-03-13</span>
           <span class="title"><a href="#" class="post-link"
               data-cat="technical"
-              data-date="2026-05-10"
+              data-date="2026-03-13"
               data-title="Deep Dive into Model Context Protocol (MCP) for Developer Tooling">Deep Dive into Model Context Protocol (MCP) for Developer Tooling</a></span>
           <template>
-            <p>The Model Context Protocol (MCP) gives LLMs a standard way to discover and call external tools. Instead of bespoke glue per integration, you expose a server of composable tools and let the model reason over them.</p>
-            <p>In this piece I walk through building MCP servers for developer tooling — repository access, retrieval, and review — and the design tradeoffs around tool granularity, auth, and context budgeting.</p>
-            <p><em>Full write-up coming soon.</em></p>
+            <p>I kept running into the same wall. Every time I wanted my LLM to actually <em>do</em> something — read a repo, hit a database, pull a doc — I'd write another one-off integration. Different shapes, different auth, different failure modes. It didn't scale, and honestly it was boring work.</p>
+            <p>MCP fixed that for me. The idea is simple: instead of hardcoding each integration into the model, you stand up a small server that exposes a set of tools, and the model discovers and calls them through one shared protocol. Write the tool once, and any MCP-aware client can use it.</p>
+            <p>Where it got interesting was the design choices nobody warns you about. How granular should a tool be? Too fine and the model burns context juggling twenty calls; too coarse and it can't compose them. I landed on "one tool per intent" as a rough rule — a tool should map to something a person would actually ask for.</p>
+            <p>The other thing: auth and context budgeting are the real engineering, not the protocol itself. A tool that dumps 4,000 tokens of JSON into the context window will quietly wreck your agent's reasoning. I spend more time trimming tool outputs than writing the tools.</p>
+            <p>If you're building developer tooling, MCP is worth the afternoon it takes to learn. I'll go deeper into the server I built — the github and qdrant ones — in a follow-up.</p>
           </template>
         </li>
         <li data-cat="technical">
-          <span class="date">2026-04-20</span>
+          <span class="date">2026-04-08</span>
           <span class="title"><a href="#" class="post-link"
               data-cat="technical"
-              data-date="2026-04-20"
+              data-date="2026-04-08"
               data-title="Building Low-Latency Emotion-Aware 3D Avatars">Building Low-Latency Emotion-Aware 3D Avatars</a></span>
           <template>
-            <p>Real-time 3D avatars that react to emotion need a tight pipeline: capture voice, extract emotional context, synthesize a reply, and drive a lip-synced face mesh — all streamed over a single connection.</p>
-            <p>I cover the VAD (Valence, Arousal, Dominance) analytics, voice cloning with emotion-aware pacing, and how WebSockets keep the latency low enough to feel alive.</p>
-            <p><em>Full write-up coming soon.</em></p>
+            <p>The first time I got an avatar to react to my voice in real time, I just sat there talking to it for an hour. There's something uncanny about a face that softens when you sound sad and perks up when you get excited — and getting there was harder than I expected.</p>
+            <p>The pipeline has four moving parts that all have to stay fast: capture the voice, pull the emotional context out of it, synthesize a reply, and drive a lip-synced face mesh. Each stage adds latency, and latency is the enemy. The moment there's a noticeable lag between you speaking and the face responding, the illusion breaks completely.</p>
+            <p>For emotion I leaned on a VAD model — Valence, Arousal, Dominance — instead of trying to classify discrete "happy/sad" labels. Emotions aren't buckets, they're a continuous space, and the avatar's expressions blend much more naturally when you treat them that way.</p>
+            <p>The trick that made it feel alive was emotion-aware pacing on the voice side. A flat TTS read kills the whole thing. Slowing down on a tender line, speeding up when excited — small touches, big difference.</p>
+            <p>Everything streams over a single WebSocket connection to keep round-trips minimal. It's still a work in progress, but it's the project I'm most proud of so far.</p>
           </template>
         </li>
         <li data-cat="personal">
-          <span class="date">2026-03-25</span>
+          <span class="date">2026-05-15</span>
           <span class="title"><a href="#" class="post-link"
               data-cat="personal"
-              data-date="2026-03-25"
+              data-date="2026-05-15"
               data-title="My journey with AI Agents and Systems Architecture">My journey with AI Agents and Systems Architecture</a></span>
           <template>
-            <p>A personal look at how I went from curiosity about LLMs to building agent orchestration systems for production — the detours, the failures, and what actually stuck.</p>
-            <p><em>Full write-up coming soon.</em></p>
+            <p>I didn't start with agents. I started with a chatbot that confidently made things up, and the slow realization that the interesting problem wasn't the model — it was everything around it.</p>
+            <p>For a while I chased every shiny thing. New framework, new vector DB, new prompt trick. Most of it didn't stick. What actually taught me something was the stuff that broke in production: the agent that looped forever, the retrieval that returned garbage, the orchestration that fell apart the moment two tools needed to talk to each other.</p>
+            <p>Somewhere along the way my mental model flipped. I stopped thinking "how do I make the model smarter" and started thinking "how do I design a system where a fallible model can still be useful." Guardrails, retries, good context, clear tool boundaries. Boring systems work — and it's the boring systems work that makes agents reliable.</p>
+            <p>I'm still early in this. But if there's one thing I'd tell past-me, it's this: spend less time on the prompt and more time on the architecture around it. That's where the real leverage is.</p>
           </template>
         </li>
         <li data-cat="technical">
-          <span class="date">2026-03-15</span>
+          <span class="date">2026-04-30</span>
           <span class="title"><a href="#" class="post-link"
               data-cat="technical"
-              data-date="2026-03-15"
+              data-date="2026-04-30"
               data-title="Retrieval-Augmented Generation (RAG) at Scale">Retrieval-Augmented Generation (RAG) at Scale</a></span>
           <template>
-            <p>RAG is easy to prototype and hard to scale. Chunking strategy, embedding choice, vector store latency, and reranking all compound as your corpus grows.</p>
-            <p>Here I share patterns for keeping retrieval fast and relevant at scale, plus how I wired Qdrant and a 70B model for contextual review.</p>
-            <p><em>Full write-up coming soon.</em></p>
+            <p>RAG demos beautifully and scales painfully. You wire up an embedding model, throw documents at a vector store, and the first ten queries feel like magic. Then your corpus grows, and the cracks show up one by one.</p>
+            <p>Chunking is where most of the pain starts. Split too aggressively and you shred the context that made a passage meaningful; split too loosely and you retrieve walls of irrelevant text. There's no universal answer — it depends on your documents — but getting it wrong quietly tanks every downstream result.</p>
+            <p>Then there's the retrieval-quality problem. Cosine similarity will happily hand you passages that <em>look</em> related but answer a different question. A reranking pass on top of the initial retrieval made a bigger difference for me than swapping embedding models ever did.</p>
+            <p>On the infra side, latency compounds. Embedding the query, hitting the vector store, reranking, then generating — each step adds up, and users feel it. I leaned on Qdrant for fast vector search and a 70B model via Groq for the generation, which kept the contextual review loop snappy enough to actually use.</p>
+            <p>The lesson I keep relearning: RAG isn't one feature, it's a pipeline, and the weakest stage sets your ceiling.</p>
           </template>
         </li>
         <li data-cat="essays">
-          <span class="date">2026-02-18</span>
+          <span class="date">coming soon</span>
           <span class="title"><a href="#" class="post-link"
               data-cat="essays"
-              data-date="2026-02-18"
+              data-date="coming soon"
               data-title="My experience at ACM Summer School (IISc Bangalore)">My experience at ACM Summer School (IISc Bangalore)</a></span>
           <template>
             <p>Two intense weeks at IISc Bangalore surrounded by researchers and a small cohort of selected students. Lectures, hands-on sessions, and a lot of late-night conversations about where the field is heading.</p>
@@ -615,10 +623,10 @@
           </template>
         </li>
         <li data-cat="essays">
-          <span class="date">2026-01-22</span>
+          <span class="date">coming soon</span>
           <span class="title"><a href="#" class="post-link"
               data-cat="essays"
-              data-date="2026-01-22"
+              data-date="coming soon"
               data-title="Summer Research fellowship: A journey into India's premier labs">Summer Research fellowship: A journey into India's premier labs</a></span>
           <template>
             <p>Getting into the IASc–INSA–NASI Summer Research Fellowship meant working alongside scientists at one of India's premier labs for two months. This is what the application, selection, and the work itself were really like.</p>
